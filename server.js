@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Connect to my MongoDB Database
-mongoose.connect("mongodb://localhost:27017/todo");
+mongoose.connect("mongodb+srv://admin:admin@feed.5uf8avf.mongodb.net/?retryWrites=true&w=majority");
 
 const todoSchema = new mongoose.Schema({
 	task: String,
