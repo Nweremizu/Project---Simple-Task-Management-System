@@ -106,6 +106,9 @@ todo_list.addEventListener("click", function (e) {
 	if (e.target.tagName === "INPUT") {
 		let id = e.target.dataset.id;
 		let completed = e.target.checked;
+		if (e.target.checked) {
+			e.target.classList.add("completed-task");
+		}
 		update_todo(id, completed);
 	}
 });
