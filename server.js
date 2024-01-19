@@ -14,9 +14,8 @@ app.use(express.json());
 mongoose.connect(
 	"mongodb+srv://admin:admin@feed.5uf8avf.mongodb.net/?retryWrites=true&w=majority",
 	{
-		poolSize: 10,
+		maxpoolSize: 10,
 		useNewUrlParser: true,
-		useUnifiedTopology: true,
 	}
 );
 
