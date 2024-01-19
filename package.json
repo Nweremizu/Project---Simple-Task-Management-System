@@ -1,10 +1,14 @@
 {
-  "devDependencies": {
-    "tailwindcss": "^3.4.1"
+  "name": "api-make",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x"
   },
   "scripts": {
-    "build": "tailwindcss -i dev.css -o output/prod.css",
-    "watch": "tailwindcss -i dev.css -o output/prod.css --watch"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
