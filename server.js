@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 const PORT = 3000;
 
 const app = express();
 
-app.use(express.static("public"));
+app.use("/", express.static(path.resolve(__dirname, "public")));
 app.use(express.json());
 
 // Connect to my MongoDB Database
@@ -15,18 +16,6 @@ mongoose.connect("mongodb+srv://admin:admin@feed.5uf8avf.mongodb.net/?retryWrite
 const todoSchema = new mongoose.Schema({
 	task: String,
 	completed: Boolean,
-});
-
-app.get("/", (req, res) => {
-	const indexPath = `${__dirname}/public/task_system.html`;
-	fs.readFile(indexPath, "utf8", (err, data) => {
-		if (err) {
-			console.error(err);
-			res.status(500).send("Internal Server Error");
-		} else {
-			res.send(data);
-		}
-	});
 });
 
 const Todo = mongoose.model("Todo", todoSchema);

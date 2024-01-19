@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "author": "csc 310 group 25",
+  "license" : "MIT",
   "engines": {
     "node": "18.x"
   },
@@ -13,6 +15,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mongoose": "^8.0.4"
+    "mongoose": "^8.0.4",
+    "nodemon": "^2.0.12"
   }
 }
