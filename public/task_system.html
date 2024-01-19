@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management Sys</title>
+    <link rel="stylesheet" href="prod.css">
+</head>
+
+<body>
+    <div class="home">
+        <div class="container">
+            <div class="Header">
+                <div class="logo">
+                    <h1>To<span>Do</span></h1>
+                </div>
+                <form class="form">
+                    <input type="text" placeholder="Enter Task" class="task_form" id="add_task" name="task">
+                    <input hidden value="false" name="completed">
+                    <input type="submit" value="Add Task" class="submit-btn">
+                </form>
+            </div>
+            <div class="main">
+                <div class="task-container">
+                    <div class="info">
+                        <div class="inform">
+                            <p>Total Tasks: <span class="total">2</span></p>
+                        </div>
+                        <div class="inform">
+                            <p>Completed Tasks: <span class="completed">2 of 5</span></p>
+                        </div>
+                    </div>
+                    <div class="todo-list">
+
+                    </div>
+                </div>
+                <div class="modal-container" id="modalContainer">
+                    <div class="modal">
+                        <span class="close-btn" id="closeModalBtn">&times;</span>
+                        <form class="form-m">
+                            <h1>Edit Task</h1>
+                            <input type="text" placeholder="Edit Task" class="task_form-m" id="edit_task" name="task">
+                            <input type="submit" value="Edit Task" class="submit-btn-m">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

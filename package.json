@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "scripts": {
+    "build": "tailwindcss -i dev.css -o output/prod.css",
+    "watch": "tailwindcss -i dev.css -o output/prod.css --watch"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.4"
+  }
+}
