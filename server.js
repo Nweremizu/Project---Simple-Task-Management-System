@@ -10,25 +10,16 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
-// Connect to my MongoDB Database with connection pooling
-mongoose.connect(
-	"mongodb+srv://admin:admin@feed.5uf8avf.mongodb.net/?retryWrites=true&w=majority",
-	{
-		maxpoolSize: 10,
-		useNewUrlParser: true,
-	}
-);
+// Connect to my MongoDB Database
+mongoose.connect("mongodb+srv://admin:admin@feed.5uf8avf.mongodb.net/?retryWrites=true&w=majority");
 
 const todoSchema = new mongoose.Schema({
-	task: { type: String, index: true },
-	completed: { type: Boolean, index: true },
+	task: String,
+	completed: Boolean,
 });
 
-const Todo = mongoose.model("Todo", todoSchema);
-
-// API Endpoints
 app.get("/", (req, res) => {
-	const indexPath = path.join(__dirname, "public", "task_system.html");
+	const indexPath = `${__dirname}/public/task_system.html`;
 	fs.readFile(indexPath, "utf8", (err, data) => {
 		if (err) {
 			console.error(err);
@@ -39,40 +30,50 @@ app.get("/", (req, res) => {
 	});
 });
 
-// Use lean queries and select only necessary fields
+const Todo = mongoose.model("Todo", todoSchema);
+
+//API Endpoints
 app.get("/todos", async (req, res) => {
-	const todos = await Todo.find().lean().select("task completed");
+	const todos = await Todo.find();
 	res.json(todos);
 });
 
-// Use insertMany for bulk inserts
 app.post("/todos", async (req, res) => {
-	const newTodos = Array.isArray(req.body) ? req.body : [req.body];
-	const insertedTodos = await Todo.insertMany(newTodos);
-	res.json(insertedTodos);
+	const { task, completed } = req.body;
+	const newTodo = new Todo({ task, completed });
+	await newTodo.save();
+	res.json(newTodo);
+	console.log(newTodo);
 });
 
-// Use updateMany for bulk updates
-app.put("/todos/completed", async (req, res) => {
-	const updates = req.body.map(({ id, completed }) => ({
-		updateOne: { filter: { _id: id }, update: { completed } },
-	}));
-	await Todo.bulkWrite(updates);
-	res.json({ message: "Todos Updated" });
-});
-
-// Use updateOne for single updates
-app.put("/todos", async (req, res) => {
-	const { id, task } = req.body;
-	const updatedTodo = await Todo.findByIdAndUpdate(id, { task }, { new: true });
-	res.json(updatedTodo);
-});
-
-// Use deleteOne for single deletes
-app.delete("/todos/:id", async (req, res) => {
-	const id = req.params.id;
+app.delete("/todos/", async (req, res) => {
+	const { id } = req.body;
 	await Todo.findByIdAndDelete(id);
 	res.json({ message: "Todo Deleted" });
+	console.log(id);
+});
+
+// to update the completed status of a todo
+app.put("/todos/completed/", async (req, res) => {
+	const { id } = req.body;
+	const { completed } = req.body;
+	try {
+		const updatedTodo = await Todo.findByIdAndUpdate(id, { completed }, { new: true });
+		res.json(updatedTodo);
+	} catch (error) {
+		res.status(500).json({ error: "Error updating todo" });
+	}
+});
+
+app.put("/todos/", async (req, res) => {
+	const { id } = req.body;
+	const { task } = req.body;
+	try {
+		const update_Todo = await Todo.findByIdAndUpdate(id, { task }, { new: true });
+		res.json(update_Todo);
+	} catch (error) {
+		res.status(500).json({ error: "Error updating todo" });
+	}
 });
 
 app.listen(PORT, () => {
