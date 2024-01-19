@@ -43,6 +43,7 @@ const add_todo = async (task) => {
 		},
 		body: JSON.stringify({ task, completed: false }),
 	});
+	console.log(task);
 
 	fetch_todos();
 };
