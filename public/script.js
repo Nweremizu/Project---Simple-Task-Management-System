@@ -1,7 +1,7 @@
 // Server Functions
 
 const fetch_todos = async () => {
-	const res = await fetch("http://localhost:3000/todos");
+	const res = await fetch("/todos");
 	const data = await res.json();
 	let number_of_tasks = data.length;
 	let number_of_completed_tasks = data.filter((todo) => todo.completed).length;
@@ -36,7 +36,7 @@ const fetch_todos = async () => {
 fetch_todos();
 
 const add_todo = async (task) => {
-	await fetch("http://localhost:3000/todos", {
+	await fetch("/todos", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -48,7 +48,7 @@ const add_todo = async (task) => {
 };
 
 const delete_todo = async (id) => {
-	await fetch(`http://localhost:3000/todos`, {
+	await fetch(`/todos`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
@@ -60,7 +60,7 @@ const delete_todo = async (id) => {
 };
 
 const update_todo = async (id, completed) => {
-	await fetch(`http://localhost:3000/todos/completed/`, {
+	await fetch(`/todos/completed/`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
@@ -72,7 +72,7 @@ const update_todo = async (id, completed) => {
 };
 
 const update_task = async (id, task) => {
-	await fetch("http://localhost:3000/todos/", {
+	await fetch("/todos/", {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
